@@ -1,12 +1,8 @@
 const express = require('express');
-const dotenv = require('dotenv');
+const serverless = require('serverless-http');
 const cors = require('cors');
 const connectDB = require('./config/db');
 const taskRoutes = require('./routes/taskRoutes');
-const serverless = require('serverless-http');
-
-// Load env vars
-dotenv.config();
 
 // Connect to database
 connectDB();
@@ -23,9 +19,6 @@ app.use(express.json());
 
 // Routes
 app.use('/api/tasks', taskRoutes);
-
-// Serve static files from frontend folder
-app.use(express.static('frontend'));
 
 // Export the app as a serverless handler
 module.exports.handler = serverless(app);
